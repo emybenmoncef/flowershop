@@ -1,9 +1,9 @@
 // DELETE THIS LINE
-const selectAll = () => {};
+
 
 // UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 // const db = require("../database-mysql");
-// const Item = require('../database-mongo/Item.model.js');
+ const Item = require('../database-mongo/Item.model.js');
 
 // UNCOMMENT IF USING MYSQL WITH CALLBACKS
 // const selectAll = function (req, res) {
@@ -17,24 +17,60 @@ const selectAll = () => {};
 // };
 
 // UNCOMMENT IF USING MONGOOSE WITH PROMISES
-// const selectAll = function (req, res) {
-//   Item.find({})
-//     .then((items) => {
-//       res.status(200).send(items);
-//     })
-//     .catch((error) => {
-//       res.status(500).send(error);
-//     });
-// };
 
-// UNCOMMENT IF USING MONGOOSE WITH PROMISES & ASYNC AWAIT
-// const selectAll = async function (req, res) {
-//   try {
-//     const items = await Item.find({});
-//     res.status(200).send(items);
-//   } catch (error) {
-//     res.status(200).send(error);
-//   }
-// };
+const selectAll = async function (req, res) {
+   try {
+     const items = await Item.find();
+    res.status(200).send(items);
+     } catch (error) {
+     res.status(200).send(error);
+  }
+ };
+ const getById = async function (req, res){
+  const id = req.params.id ;
+   let item;
+   try {
+    item = await Item.findById(id);
+   }  catch(err){
+    console.log(err)
+   }
+ }
+ const addbouquet = async function (req, res) {
+  try {
+    console.log (req.body)
+    const item = await Item.create(req.body);
+   res.status(200).json(item);
+   
+    } catch (error) {
+    res.status(200).send(error);
+ }
+};
+const updatebouquet = async function (req, res) {
+  const id = req.params.id ;
+  let item;
+  try {
+    const item = await Item.findByIdAndUpdate(id,{
+      bouquetname,
+      description,
+      price,
+      quantityoFlower,
+      imageUrl,
+      available
+    });
+    item = await item.save()
+  } catch (error) {
+    res.status(200).send(error);
+ }
+};
+const popbouquet = async function (req, res) {
+  try {
+    const item = await Item.findByIdAndRemove(req.body);
+   res.status(200).json(item);
+    } catch (error) {
+    res.status(200).send(error);
+ }
+};
 
-module.exports = { selectAll };
+
+module.exports = { selectAll,getById,addbouquet,updatebouquet,popbouquet};
+
