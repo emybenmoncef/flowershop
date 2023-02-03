@@ -9,7 +9,7 @@ const {bouquetname,description,quantityoFlower,price,imageurl, available} = prop
       <p>{description}</p>
       <h3>{price}</h3>
       <Button> Update </Button>
-      <Button> Deleate </Button>
+      <Button> Delete </Button>
   </div>
 }
 
