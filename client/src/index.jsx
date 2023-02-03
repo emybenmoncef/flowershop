@@ -8,6 +8,7 @@ import AddBouquet from './components/AddBouquet.jsx'
 import Home from './components/Home.jsx'
 import BouquetDetail from './components/BouquetDetail.jsx'
 import About from './components/About.jsx'
+import axios from 'axios'
 
 const App = () => {
   const [items, setItems] = useState([])
@@ -22,7 +23,16 @@ const App = () => {
         console.log('err', err)
       },
     })
-  }, [])
+  }, []);
+  const addBouquet = (bouquet) => {
+    console.log(bouquet);
+    axios
+    .post('/api/items',bouquet)
+    .then(response => {
+      setItems([...items, data]);
+    })
+    .catch(err => console.log(err));
+  };
 
   return (
     <React.Fragment>
@@ -32,7 +42,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} exact />
-          <Route path="/add" element={<AddBouquet />} exact />
+          <Route path="/add" element={<AddBouquet addBouquet={addBouquet}/>} exact />
           <Route path="/list" element={<List items={items}/>} exact />
           <Route path="/about" element={<About/>} exact />
           <Route path="/books/:id" element={<BouquetDetail />} exact />
