@@ -23,7 +23,7 @@ const selectAll = async function (req, res) {
      const items = await Item.find();
     res.status(200).send(items);
      } catch (error) {
-     res.status(200).send(error);
+     res.status(404).send(error);
   }
  };
  const getById = async function (req, res){
@@ -42,32 +42,33 @@ const selectAll = async function (req, res) {
    res.status(200).json(item);
    
     } catch (error) {
-    res.status(200).send(error);
+    res.status(404).send(error);
  }
 };
 const updatebouquet = async function (req, res) {
   const id = req.params.id ;
-  let item;
+  const { bouquetname, description,price, quantityoFlower,imageUrl,available} =  req.body
   try {
     const item = await Item.findByIdAndUpdate(id,{
-      bouquetname,
-      description,
-      price,
-      quantityoFlower,
-      imageUrl,
-      available
+      bouquetname:bouquetname,
+      description:description,
+      price:price,
+      quantityoFlower:quantityoFlower,
+      imageUrl:imageUrl,
+      available:available
     });
     item = await item.save()
   } catch (error) {
-    res.status(200).send(error);
+    res.status(404).send(error);
  }
 };
 const popbouquet = async function (req, res) {
+  const id = req.params.id;
   try {
-    const item = await Item.findByIdAndRemove(req.body);
+    const item = await Item.findByIdAndRemove(id);
    res.status(200).json(item);
     } catch (error) {
-    res.status(200).send(error);
+    res.status(404).send(error);
  }
 };
 

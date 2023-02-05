@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React from 'react';
-
+//import style from "./client/dist/style.css";
 
 const ListItem = (props) => {
 const {bouquetname,description,quantityoFlower,price,imageurl, available} = props.item ;
@@ -9,8 +9,8 @@ const {bouquetname,description,quantityoFlower,price,imageurl, available} = prop
       <h3>{quantityoFlower}</h3>
       <p>{description}</p>
       <h3> {price} $ </h3>
-      <Button> Update </Button>
-      <Button> Delete </Button>
+      <Button sx={{mt:'auto'}}> Update </Button>
+      <Button sx={{mt:'auto'}} > Delete </Button>
   </div>
 }
 
