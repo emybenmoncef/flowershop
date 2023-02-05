@@ -4,13 +4,17 @@ import ListItem from "./ListItem.jsx";
 const List = (props) => (
   <div>
     <h4> Bouquets  </h4>
-    These are {props.items.length} Bouquets.
+
+    Here are {props.items.length} Bouquets
+    <li>
     {props.items.map((item, index) => (
-      <div key={index}>
-        <ListItem item={item} />
+      <div className="itemlist" key={index}>
+          <ListItem item={item}/>
       </div>
+    
     ))}
-  </div>
+    </li>
+  </div >
 );
 
 export default List;
